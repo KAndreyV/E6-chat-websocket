@@ -1,0 +1,19 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% block title %}
+Advertisement
+{% endblock title %}
+
+{% block content %}
+<div >
+    <img style="border-radius: 150px;" src="/media/{{ user.writer.avatar }}" width="150" height="150" border="0" alt="Avatar" />
+</div>
+<h1>{{ user.username }}</h1>
+<h3>{% current_time '%d %b %Y' %}</h3>
+
+<hr>
+<div><h1>Написать <a href="http://127.0.0.1:8000/chat/chats/{{ user.username }}">{{ user.username }}</a>.</h1></div>
+
+{% endblock content %}

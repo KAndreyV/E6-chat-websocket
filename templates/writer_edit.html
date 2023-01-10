@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+{% if user.id is writer.id %}
+<style>
+    .round {
+    border-radius: 150px;
+    }
+</style>
+   <div> <h1>{{user.username}}</h1>
+    <img src="/media/{{ user.writer.avatar }}" width="150" height="150" border="0" alt="Avatar" class="round"/>
+   </div>
+    <hr>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+{% else %}
+     <h2>Вы не можете изменять не свои данные!</h2>
+{% endif %}
+
+{% if img_obj %}
+<h3>Succesfully uploaded : {{img_obj.caption}}</h3>
+<img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">
+{% endif %}
+
+<!--<td><a href="/">Назад</a></td>-->
+
+{% endblock content %}

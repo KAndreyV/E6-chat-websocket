@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+<h2>Страница пользователя {{request.user.username}}</h2>
+
+<style>
+    .round {
+    border-radius: 150px;
+    }
+</style>
+
+<div >
+    <img src="/media/{{ user.writer.avatar }}" width="150" height="150" border="0" alt="Avatar" class="round"/>
+</div>
+
+
+
+<div><a href="chat/writers/{{ user.pk }}/upgrade/"> Редактировать</a>профиль.</div>
+
+<button> <a href="sign/logout/">Выйти</a> </button>
+
+{% endblock %}

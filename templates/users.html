@@ -1,0 +1,67 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_tags %}
+
+{% block title %}
+Userss
+{% endblock title %}
+
+{% block content %}
+   <h1>Все пользователи</h1>
+   <h3>{% current_time '%d %b %Y' %}</h3>
+
+<!--   <form action="" method="get">-->
+<!--       {# Переменная, которую мы передали через контекст, может сгенерировать нам форму с полями #}-->
+<!--       {{ filterset.form.as_p }}-->
+<!--       {# Добавим кнопку отправки данных формы #}-->
+<!--       <input type="submit" value="Найти" />-->
+<!--   </form>-->
+
+   <hr>
+   {% if not users %}
+       <h2>Кроме тебя никто не зарегистрировался(</h2>
+
+   {% else %}
+<table>
+    <tr>
+        <td>Логин</td>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Последняя активность</td>
+        <td>Аватарка</td>
+    </tr>
+
+    {% for user in users %}
+    <tr>
+        <td><a href="/chat/writers/{{ user.id }}">{{ user.username }}</a></td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.last_login }}</td>
+        <td><img style="border-radius: 150px;" src="/media/{{ user.writer.avatar }}" width="50" height="50" border="0" alt="Avatar"/></a></td>
+<!--        <td><a href="/advertisements/authors/{{ advertisement.author.id }}">{{ advertisement.author.username }}</a></td>-->
+<!--        <td><a href="/advertisements/{{ advertisement.pk }}">Посмотри меня)</a></td>-->
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+
+    {% if page_obj.has_previous %}
+        <a href="?{% url_replace page=1 %}">1</a>
+        {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+        {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+
+{% endblock content %}
